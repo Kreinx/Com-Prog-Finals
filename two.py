@@ -1,6 +1,8 @@
 import random # For shuffling words
 import winsound # For playing sound on Windows
 import time
+from tkinter import*
+from PIL import Image, ImageTk
 
 def jumble(): 
     levels = [

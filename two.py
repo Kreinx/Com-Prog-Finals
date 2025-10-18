@@ -12,7 +12,7 @@ def jumble():
     current_level = 0
 
     print("This is a Totally Normal Word Game")
-    time.sleep(2)
+    time.sleep(1)
     start_game = input("Do you want to start the game? (yes/no): ").strip().lower()
     if start_game != 'yes':
         print("Maybe next time. Goodbye!")
@@ -21,9 +21,9 @@ def jumble():
         print("Let's get started!")
         time.sleep(1)
     print("You have 3 lives. Guess the correct word to proceed to the next level.")
-    time.sleep(4)
+    time.sleep(2)
     print("If you run out of lives, the game is over.")
-    time.sleep(3)
+    time.sleep(1)
     # Game loop / playing the game
     while lives != 0 and current_level < len(levels):
         words = levels[current_level][:]

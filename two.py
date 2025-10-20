@@ -1,9 +1,14 @@
 import random # For shuffling words
 import winsound # For playing sound on Windows
 import time
-from tkinter import*
-from PIL import Image, ImageTk
-
+from tkinter import* #Para sa jumpscare 
+from PIL import Image, ImageTk #Para sa jumpscare din
+root = tk.Tk()
+root.title("lolxd")
+root.geometry("400x300")
+test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to
+photo = ImageTk.PhotoImage(test_jumpscareimage)
+label_scare = test_jumpscareimage.Label(root, image=photo) #etongmgashit ay para sa jumpscare pero di pa sila gumagana
 def jumble(): 
     levels = [
         ['python', 'jumble', 'easy', 'difficult', 'answer', 'xylophone'],
@@ -41,6 +46,7 @@ def jumble():
                 print("Try again!")
                 print(f"You have {lives} lives left.")
                 if lives == 0:
+                    test_jumpscareimage.label.pack(expand=True) #para sa jumpscare din pero di gumagana
                     winsound.PlaySound(r"Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
                     print("Game over! The word was:", word)
                     time.sleep(6)  # Wait for the sound to finish
@@ -52,3 +58,4 @@ def jumble():
 
 if __name__ == "__main__":
     jumble()
+    root.mainloop()

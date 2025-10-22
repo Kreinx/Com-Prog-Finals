@@ -7,7 +7,7 @@ root = tk.Tk()
 root.title("lolxd")
 root.geometry("400x300")
 test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to
-photo = ImageTk.PhotoImage(test_jumpscareimage)
+photo = ImageTk.PhotoImage(test_jumpscareimage) #ano ilalagay kong photo for jumpscare?
 label_scare = test_jumpscareimage.Label(root, image=photo) #etongmgashit ay para sa jumpscare pero di pa sila gumagana
 def jumble(): 
     levels = [
@@ -58,4 +58,5 @@ def jumble():
 
 if __name__ == "__main__":
     jumble()
+
     root.mainloop()

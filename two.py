@@ -1,7 +1,7 @@
 import random # For shuffling words
 import winsound # For playing sound on Windows
 import time
-from tkinter import* #Para sa jumpscare 
+import tkinter as tk #Para sa jumpscare 
 from PIL import Image, ImageTk #Para sa jumpscare din
 root = tk.Tk()
 root.title("lolxd")

@@ -6,10 +6,16 @@ from PIL import Image, ImageTk #Para sa jumpscare din
 root = tk.Tk()
 root.title("lolxd")
 root.geometry("400x300")
+<<<<<<< HEAD
 root.withdraw()#naka preload yung window. Nandito to para gawin syang invisible until matrigger yung jumpscare
 test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to #para din mapreload yung image 
 photo = ImageTk.PhotoImage(test_jumpscareimage)#para din mapreload yung image 
 label_scare = tk.Label(root, image=photo) #eto yung label nanaghohold ng jumpscare image
+=======
+test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to
+photo = ImageTk.PhotoImage(test_jumpscareimage) #ano ilalagay kong photo for jumpscare?
+label_scare = test_jumpscareimage.Label(root, image=photo) #etongmgashit ay para sa jumpscare pero di pa sila gumagana
+>>>>>>> 22ac5003fc8a7fd6475120699440261f8e71f23f
 def jumble(): 
     levels = [
         ['python', 'jumble', 'easy', 'difficult', 'answer', 'xylophone'],
@@ -62,4 +68,5 @@ def jumble():
 
 if __name__ == "__main__":
     jumble()
+
     root.mainloop()

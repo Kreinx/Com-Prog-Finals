@@ -6,9 +6,10 @@ from PIL import Image, ImageTk #Para sa jumpscare din
 root = tk.Tk()
 root.title("lolxd")
 root.geometry("400x300")
-test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to
-photo = ImageTk.PhotoImage(test_jumpscareimage)
-label_scare = test_jumpscareimage.Label(root, image=photo) #etongmgashit ay para sa jumpscare pero di pa sila gumagana
+root.withdraw()#naka preload yung window. Nandito to para gawin syang invisible until matrigger yung jumpscare
+test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to #para din mapreload yung image 
+photo = ImageTk.PhotoImage(test_jumpscareimage)#para din mapreload yung image 
+label_scare = tk.Label(root, image=photo) #eto yung label nanaghohold ng jumpscare image
 def jumble(): 
     levels = [
         ['python', 'jumble', 'easy', 'difficult', 'answer', 'xylophone'],
@@ -46,10 +47,13 @@ def jumble():
                 print("Try again!")
                 print(f"You have {lives} lives left.")
                 if lives == 0:
-                    test_jumpscareimage.label.pack(expand=True) #para sa jumpscare din pero di gumagana
+                    root.deiconify()#ginagawa netong visible ulit yung window
+                    label_scare.pack(expand=True)#para magopen sya
+                    root.update() #nagfoforce to ng refresh para mas mabilis mag appear yung jumpscare image
                     winsound.PlaySound(r"Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
                     print("Game over! The word was:", word)
                     time.sleep(6)  # Wait for the sound to finish
+                    label_scare.pack_forget() #hinihide neto yung window after matapos ng jumpscare sound
                     return
         current_level += 1
 

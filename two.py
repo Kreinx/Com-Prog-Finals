@@ -11,8 +11,6 @@ test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to #para
 photo = ImageTk.PhotoImage(test_jumpscareimage)#para din mapreload yung image 
 label_scare = tk.Label(root, image=photo) #eto yung label nanaghohold ng jumpscare image
 test_jumpscareimage = Image.open("testjumpscare.gif") #placeholder lang to
-photo = ImageTk.PhotoImage(test_jumpscareimage) #ano ilalagay kong photo for jumpscare?
-label_scare = test_jumpscareimage.Label(root, image=photo) #etongmgashit ay para sa jumpscare pero di pa sila gumagana
 def jumble(): 
     levels = [
         ['python', 'jumble', 'easy', 'difficult', 'answer', 'xylophone'],
@@ -56,7 +54,8 @@ def jumble():
                     winsound.PlaySound(r"Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
                     print("Game over! The word was:", word)
                     time.sleep(6)  # Wait for the sound to finish
-                    label_scare.pack_forget() #hinihide neto yung window after matapos ng jumpscare sound
+                    label_scare.pack_forget() #hinihide neto yung image
+                    root.withdraw()#hinihide neto yung window
                     return
         current_level += 1
 

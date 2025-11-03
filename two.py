@@ -2,7 +2,7 @@ import random
 import winsound
 import time
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk # for image handling
 
 # preload tkinter window and jumpscare image
 root = tk.Tk()

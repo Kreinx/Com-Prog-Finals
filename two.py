@@ -1,6 +1,20 @@
-import random # For shuffling words
-import winsound # For playing sound on Windows
+import random
+import winsound
 import time
+import tkinter as tk
+from PIL import Image, ImageTk
+
+# preload tkinter window and jumpscare image
+root = tk.Tk()
+root.title("lolxd")
+root.geometry("400x300")
+root.withdraw()  # keep window hidden until jumpscare
+try:
+    _scare_img = Image.open("testjumpscare.gif")
+    _scare_photo = ImageTk.PhotoImage(_scare_img)
+    label_scare = tk.Label(root, image=_scare_photo)
+except Exception:
+    label_scare = tk.Label(root, text="")  # fallback
 
 def jumble(): 
     levels = [
@@ -8,11 +22,10 @@ def jumble():
         ['programming', 'developer', 'function', 'variable', 'iteration', 'condition'],
         ['asynchronous', 'polymorphism', 'inheritance', 'encapsulation', 'abstraction', 'synchronization']
     ]
-    # per-level base chance increment (%) and sanity deduction (%) for each wrong guess
-    level_chances = [10, 25, 40]  # level 1, 2, 3
+    level_chances = [10, 25, 40]
     sanity = 100  # hidden sanity meter
     current_level = 0
-    jumpscare_chance = 0.0  # current probability (%)
+    jumpscare_chance = 0.0  # kept for adjustments but not used for random jumpscares
 
     print("This is a Totally Normal Word Game")
     time.sleep(1)
@@ -28,22 +41,19 @@ def jumble():
     print("Be wary: every wrong guess increases the chance of a surprise. Stay sane...")
     time.sleep(2)
 
-    # Game loop
     while current_level < len(levels):
         words = levels[current_level][:]
         random.shuffle(words)
         base_inc = level_chances[current_level]
         for word in words:
             jumbled = ''.join(random.sample(word, len(word)))
-            print(f"\n\033[1m=+=+=+= LEVEL {current_level + 1} =+=+=+=\033[0m\nThe jumbled word is:", jumbled)
+            print(f"\n\033[1m=+=+=+= LEVEL {current_level + 1} =+=+=+=\033[0m\nThe jumbled word is: {jumbled}")
             guess = input("Your guess: ").strip()
             if guess.lower() == word.lower():
-                # correct: sanity + and slight - to jumpscare chance
                 sanity = min(100, sanity + 5)
                 jumpscare_chance = max(0.0, jumpscare_chance - (base_inc * 0.5))
                 print("Congratulations! You guessed it right.")
             else:
-                # wrong: increase jumpscare chance and reduce sanity (both hidden)
                 jumpscare_chance = min(100.0, jumpscare_chance + base_inc)
                 sanity -= base_inc
                 print("Wrong guess...")
@@ -51,14 +61,25 @@ def jumble():
                 print("Tough luck! Stay focused.")
                 time.sleep(1)
 
-                # Only trigger jumpscare when sanity is depleted
+                # trigger jumpscare only when sanity is depleted
                 if sanity <= 0:
                     print("Your sanity has shattered...")
                     try:
-                        winsound.PlaySound("Jumpscare.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+                        root.deiconify()
+                        label_scare.pack(expand=True)
+                        root.update()
+                    except Exception:
+                        pass
+                    try:
+                        winsound.PlaySound(r"Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
                     except Exception:
                         pass
                     time.sleep(3)
+                    try:
+                        label_scare.pack_forget()
+                        root.withdraw()
+                    except Exception:
+                        pass
                     print("You couldn't continue. Game over.")
                     return
         current_level += 1
@@ -69,3 +90,4 @@ def jumble():
 
 if __name__ == "__main__":
     jumble()
+    root.mainloop()

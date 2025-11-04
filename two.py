@@ -63,6 +63,7 @@ def jumble():
 
                 # trigger jumpscare only when sanity is depleted
                 if sanity <= 0:
+                    time.sleep(1)
                     print("Your sanity has shattered...")
                     try:
                         root.deiconify()

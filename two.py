@@ -7,8 +7,10 @@ from PIL import Image, ImageTk # for image handling
 # preload tkinter window and jumpscare image
 root = tk.Tk()
 root.title("lolxd")
-root.geometry("400x300")
+root.attributes("-fullscreen", True)
 root.withdraw()  # keep window hidden until jumpscare
+_screen_width = root.winfo_screenmmwidth()
+_screen_height = root.winfo_screenheight()#ttry koto para magfullscreen
 try:
     _scare_img = Image.open("testjumpscare.gif")
     _scare_photo = ImageTk.PhotoImage(_scare_img)
@@ -66,7 +68,7 @@ def jumble():
                     print("Your sanity has shattered...")
                     try:
                         root.deiconify()
-                        label_scare.pack(expand=True)
+                        label_scare.pack(fill="both", expand=True) #para din sa fullscreen pero di pa tapos
                         root.update()
                     except Exception:
                         pass

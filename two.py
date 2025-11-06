@@ -9,12 +9,12 @@ root = tk.Tk()
 root.title("lolxd")
 root.attributes("-fullscreen", True)
 root.withdraw()  # keep window hidden until jumpscare
-_screen_width = root.winfo_screenmmwidth()
-_screen_height = root.winfo_screenheight()#ttry koto para magfullscreen
 try:
-    _scare_img = Image.open("testjumpscare.gif")
+    _scare_img = Image.open("il_570xN.5280345482_6jab.webp")
     _scare_photo = ImageTk.PhotoImage(_scare_img)
-    label_scare = tk.Label(root, image=_scare_photo)
+    label_scare = tk.Label(root, image=_scare_photo) #eto yung widget para madisplay yung image sa window
+    with open("Sound.wav", "rb") as f: #para mapreload yung sound pero di gumagana
+        _sound_data = f.read()
 except Exception:
     label_scare = tk.Label(root, text="")  # fallback
 
@@ -70,10 +70,11 @@ def jumble():
                         root.deiconify()
                         label_scare.pack(fill="both", expand=True) #para din sa fullscreen pero di pa tapos
                         root.update()
+                        root.lift() #para maforce forward yung window
                     except Exception:
                         pass
                     try:
-                        winsound.PlaySound(r"Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+                        winsound.PlaySound(_sound_data, winsound.SND_MEMORY)
                     except Exception:
                         pass
                     time.sleep(3)

@@ -8,17 +8,19 @@ from PIL import Image, ImageTk # for image handling
 root = tk.Tk()
 root.title("lolxd")
 root.attributes("-fullscreen", True)
-root.withdraw()  # keep window hidden until jumpscare
+root.withdraw()
+_screen_width = root.winfo_screenmmwidth()
+_screen_height = root.winfo_screenheight()
 try:
-    _scare_img = Image.open("il_570xN.5280345482_6jab.webp")
+    _scare_img = Image.open("d4c5faea-8dbd-4602-95c1-19be1f463eff.jpg")
+    _scare_img = _scare_img.resize((_screen_width, _screen_height), Image.LANCZOS)
     _scare_photo = ImageTk.PhotoImage(_scare_img)
-    label_scare = tk.Label(root, image=_scare_photo) #eto yung widget para madisplay yung image sa window
-    with open("Sound.wav", "rb") as f: #para mapreload yung sound pero di gumagana
-        _sound_data = f.read()
+    label_scare = tk.Label(root, image=_scare_photo, bg="black") #Diko pa sya mafullscreen, so black nalang muna yung background
 except Exception:
-    label_scare = tk.Label(root, text="")  # fallback
+    label_scare = tk.Label(root, text="image failed to load")  # fallback
 
 def jumble(): 
+    global label_scare, _screen_width, scree
     levels = [
         ['python', 'jumble', 'easy', 'difficult', 'answer', 'xylophone'],
         ['programming', 'developer', 'function', 'variable', 'iteration', 'condition'],
@@ -27,7 +29,7 @@ def jumble():
     level_chances = [10, 25, 40]
     sanity = 100  # hidden sanity meter
     current_level = 0
-    jumpscare_chance = 0.0  # kept for adjustments but not used for random jumpscares
+    jumpscare_chance = 100.0  # kept for adjustments but not used for random jumpscares
 
     print("This is a Totally Normal Word Game")
     time.sleep(1)
@@ -65,23 +67,20 @@ def jumble():
 
                 # trigger jumpscare only when sanity is depleted
                 if sanity <= 0:
-                    time.sleep(1)
                     print("Your sanity has shattered...")
-                    try:
+                    time.sleep(1)
+                    if label_scare:
                         root.deiconify()
-                        label_scare.pack(fill="both", expand=True) #para din sa fullscreen pero di pa tapos
+                        label_scare.place(x=0, y=0, relwidth=1, relheight=1)                   
                         root.update()
-                        root.lift() #para maforce forward yung window
+                    try:
+                        winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
                     except Exception:
                         pass
+                    time.sleep(6)
                     try:
-                        winsound.PlaySound(_sound_data, winsound.SND_MEMORY)
-                    except Exception:
-                        pass
-                    time.sleep(3)
-                    try:
-                        label_scare.pack_forget()
-                        root.withdraw()
+                        label_scare.place_forget()
+                        root.update()
                     except Exception:
                         pass
                     print("You couldn't continue. Game over.")
@@ -91,7 +90,6 @@ def jumble():
         time.sleep(1.5)
 
     print("Congratulations! You completed all levels without losing your mind... probably.")
-
+    root.destroy()
 if __name__ == "__main__":
     jumble()
-    root.mainloop()

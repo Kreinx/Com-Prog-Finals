@@ -9,11 +9,9 @@ root = tk.Tk()
 root.title("lolxd")
 root.attributes("-fullscreen", True)
 root.withdraw()
-_screen_width = root.winfo_screenmmwidth()
-_screen_height = root.winfo_screenheight()
 try:
     _scare_img = Image.open("d4c5faea-8dbd-4602-95c1-19be1f463eff.jpg")
-    _scare_img = _scare_img.resize((_screen_width, _screen_height), Image.LANCZOS)
+    _scare_img = _scare_img.resize((1000, 800), Image.LANCZOS)
     _scare_photo = ImageTk.PhotoImage(_scare_img)
     label_scare = tk.Label(root, image=_scare_photo, bg="black") #Diko pa sya mafullscreen, so black nalang muna yung background
 except Exception:

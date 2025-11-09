@@ -8,17 +8,17 @@ from PIL import Image, ImageTk # for image handling
 root = tk.Tk()
 root.title("lolxd")
 root.attributes("-fullscreen", True)
-root.withdraw()  # keep window hidden until jumpscare
+root.withdraw()
 try:
-    _scare_img = Image.open("il_570xN.5280345482_6jab.webp")
+    _scare_img = Image.open("d4c5faea-8dbd-4602-95c1-19be1f463eff.jpg")
+    _scare_img = _scare_img.resize((1000, 800), Image.LANCZOS)
     _scare_photo = ImageTk.PhotoImage(_scare_img)
-    label_scare = tk.Label(root, image=_scare_photo) #eto yung widget para madisplay yung image sa window
-    with open("Sound.wav", "rb") as f: #para mapreload yung sound pero di gumagana
-        _sound_data = f.read()
+    label_scare = tk.Label(root, image=_scare_photo, bg="black") #Diko pa sya mafullscreen, so black nalang muna yung background
 except Exception:
-    label_scare = tk.Label(root, text="")  # fallback
+    label_scare = tk.Label(root, text="image failed to load")  # fallback
 
 def jumble(): 
+    global label_scare, _screen_width, scree
     levels = [
         ['python', 'jumble', 'easy', 'difficult', 'answer', 'xylophone'],
         ['programming', 'developer', 'function', 'variable', 'iteration', 'condition'],
@@ -27,7 +27,7 @@ def jumble():
     level_chances = [10, 25, 40]
     sanity = 100  # hidden sanity meter
     current_level = 0
-    jumpscare_chance = 0.0  # kept for adjustments but not used for random jumpscares
+    jumpscare_chance = 100.0  # kept for adjustments but not used for random jumpscares
 
     print("This is a Totally Normal Word Game")
     time.sleep(1)
@@ -65,8 +65,8 @@ def jumble():
 
                 # trigger jumpscare only when sanity is depleted
                 if sanity <= 0:
-                    time.sleep(1)
                     print("Your sanity has shattered...")
+<<<<<<< HEAD
                     # play sound first to avoid delay, then show the image
                     try:
                         winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
@@ -84,6 +84,21 @@ def jumble():
                     try:
                         label_scare.pack_forget()
                         root.withdraw()
+=======
+                    time.sleep(1)
+                    if label_scare:
+                        root.deiconify()
+                        label_scare.place(x=0, y=0, relwidth=1, relheight=1)                   
+                        root.update()
+                    try:
+                        winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+                    except Exception:
+                        pass
+                    time.sleep(6)
+                    try:
+                        label_scare.place_forget()
+                        root.update()
+>>>>>>> 06b9f6ceb6478846aeef5f591223b7ce56eb0642
                     except Exception:
                         pass
                     # attempt to stop the sound
@@ -98,7 +113,6 @@ def jumble():
         time.sleep(1.5)
 
     print("Congratulations! You completed all levels without losing your mind... probably.")
-
+    root.destroy()
 if __name__ == "__main__":
     jumble()
-    root.mainloop()

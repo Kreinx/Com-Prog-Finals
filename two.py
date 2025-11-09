@@ -67,21 +67,28 @@ def jumble():
                 if sanity <= 0:
                     time.sleep(1)
                     print("Your sanity has shattered...")
+                    # play sound first to avoid delay, then show the image
+                    try:
+                        winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+                    except Exception:
+                        pass
+                    time.sleep(1)  # small pause so audio starts before image appears
                     try:
                         root.deiconify()
-                        label_scare.pack(fill="both", expand=True) #para din sa fullscreen pero di pa tapos
+                        label_scare.pack(fill="both", expand=True)
                         root.update()
-                        root.lift() #para maforce forward yung window
+                        root.lift()
                     except Exception:
                         pass
-                    try:
-                        winsound.PlaySound(_sound_data, winsound.SND_MEMORY)
-                    except Exception:
-                        pass
-                    time.sleep(3)
+                    time.sleep(5)  # let scare display while sound plays
                     try:
                         label_scare.pack_forget()
                         root.withdraw()
+                    except Exception:
+                        pass
+                    # attempt to stop the sound
+                    try:
+                        winsound.PlaySound(None, 0)
                     except Exception:
                         pass
                     print("You couldn't continue. Game over.")

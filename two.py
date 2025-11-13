@@ -71,7 +71,7 @@ def jumble():
                         winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
                     except Exception:
                         pass
-                    time.sleep(1)  # small pause so audio starts before image appears
+                    time.sleep(1.2)  # small pause so audio starts before image appears
                     try:
                         root.deiconify()
                         label_scare.pack(fill="both", expand=True)

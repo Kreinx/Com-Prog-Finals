@@ -66,7 +66,6 @@ def jumble():
                 # trigger jumpscare only when sanity is depleted
                 if sanity <= 0:
                     print("Your sanity has shattered...")
-<<<<<<< HEAD
                     # play sound first to avoid delay, then show the image
                     try:
                         winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
@@ -84,21 +83,6 @@ def jumble():
                     try:
                         label_scare.pack_forget()
                         root.withdraw()
-=======
-                    time.sleep(1)
-                    if label_scare:
-                        root.deiconify()
-                        label_scare.place(x=0, y=0, relwidth=1, relheight=1)                   
-                        root.update()
-                    try:
-                        winsound.PlaySound("Sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
-                    except Exception:
-                        pass
-                    time.sleep(6)
-                    try:
-                        label_scare.place_forget()
-                        root.update()
->>>>>>> 06b9f6ceb6478846aeef5f591223b7ce56eb0642
                     except Exception:
                         pass
                     # attempt to stop the sound
